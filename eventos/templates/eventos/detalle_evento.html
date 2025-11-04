@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'eventos/base.html' %}
 
 {% block content %}
     <h1>{{ evento.nombre }}</h1>
@@ -15,6 +15,6 @@
     {% else %}
         <p>No hay participantes registrados para este evento.</p>
     {% endif %}
-        <a href="">Agregar participante</a>
+        <a href="{% url 'registrar_participante' evento.id %}">Agregar participante</a>
         <a href="">Borrar evento</a>
 {% endblock %}

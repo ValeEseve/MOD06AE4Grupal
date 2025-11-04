@@ -1,14 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'eventos/base.html' %}
 {% block content %}
+<p class="text-center"><a href="{% url 'registrar_evento' %}" class="btn btn-primary" href="">Agregar evento</a></p>
 {% for evento in eventos %}
-    <div class="evento-list">
-        <div class="evento-list__datos">
-        <h2><a href="{% url 'detalle_evento' evento.id %}">{{ evento.nombre }}</a></h2>
+    <div class="evento-card card mb-3">
+        <div class="evento-card__datos card-body">
+        <h2><a class="card-title" href="{% url 'detalle_evento' evento.id %}">{{ evento.nombre }}</a></h2>
         <p>Fecha: {{ evento.fecha }}</p>
         <p>Ubicación: {{ evento.ubicacion }}</p>
         </div>
-        <a href="">Agregar participante</a>
-        <a href="">Borrar evento</a>
+        <a href="{% url 'registrar_participante' evento.id %}" class="btn btn-secondary">Agregar participante</a>
+        <a href="" class="btn btn-secondary">Borrar evento</a>
     </div>
 {% empty %}
     <p>No hay eventos registrados.</p>

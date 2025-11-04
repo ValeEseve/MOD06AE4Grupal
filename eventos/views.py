@@ -4,7 +4,7 @@ from .models import Evento, Participante
 
 def dashboard_eventos(request):
     eventos = Evento.objects.all()
-    return render(request, 'eventos/dashboard.html', {'eventos': eventos})
+    return render(request, 'eventos/dashboard_eventos.html', {'eventos': eventos})
 
 def detalle_evento(request, evento_id):
     evento = get_object_or_404(Evento, id=evento_id)
@@ -32,14 +32,15 @@ def registrar_evento(request):
             )
             evento.save()
 
-            mensaje = "Evento y participante registrados correctamente."
+            mensaje = "Evento registrado correctamente."
 
             evento_form = EventoForm()
+            return redirect('dashboard_eventos')
 
     else:
         evento_form = EventoForm()
 
-    return render(request, 'eventos/registro.html', {
+    return render(request, 'eventos/registro_eventos.html', {
         'evento_form': evento_form,
         'mensaje': mensaje
     })
