@@ -27,7 +27,7 @@ class EventoForm(forms.ModelForm):
 class ParticipanteForm(forms.ModelForm): 
     class Meta:
         model = Participante
-        fields = ['nombre', 'email', 'evento']
+        fields = ['nombre', 'email']
         labels = {
             'nombre': 'Nombre del Participante',
             'email': 'Email del Participante',

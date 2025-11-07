@@ -6,22 +6,42 @@
         <h1>{{ evento.nombre }}</h1>
         <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
         <p><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
-
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success" role="alert">
+            {{message}}
+        </div>
+        {% elif message.tags == 'warning' %}
+        <div class="alert alert-warning" role="alert">
+            {{message}}
+        </div>
+        {% endif %}
+        {% endfor %}
         <h2>Participantes Registrados</h2>
+        {% if evento.participantes.count == 0 %}
+        <p class="text-start"><small></small></p>
+        {% elif evento.participantes.count == 1 %}
+        <p class="text-start"><small>Hay 1 participante.</small></p>
+        {% else %}
+        <p class="text-start"><small>Hay {{ evento.participantes.count }} participantes.</small></p>
+        {% endif %}
         {% if participantes %}
         <ul>
             {% for participante in participantes %}
-            <li>{{ participante.nombre }} - {{ participante.email }}</li>
+
+            <li>{{ participante.nombre }} - {{ participante.email }} <a class="text-decoration-none" 
+                    href="{% url 'borrar_participante' participante_id=participante.id %}">❌</a></li>
+
             {% endfor %}
-        </ul>
+        </ul class="list-unstyled">
         {% else %}
         <p>No hay participantes registrados para este evento.</p>
         {% endif %}
-        <a href="{% url 'registrar_participante' evento.id %}">Agregar participante</a>
-        <a href="{% url 'borrar_evento' evento_id=evento.id %}" class="btn btn-secondary">Borrar evento</a>
-        <div>
+        <a class="btn btn-primary" href="{% url 'registrar_participante' evento.id %}">➕ Agregar participante</a>
+        <a href="{% url 'borrar_evento' evento_id=evento.id %}" class="btn btn-danger">🗑️ Borrar evento</a>
+        <div class="text-center mt-4">
             <a href="{% url 'dashboard_eventos' %}" class="btn btn-secondary">
-                Volver al Dashboard
+                ↩️ Volver al Dashboard
             </a>
 
         </div>

@@ -1,16 +1,23 @@
 {% extends 'eventos/base.html' %}
 {% block content %}
-    <h1>Registro de Eventos</h1>
+<main class="container d-flex flex-column align-items-center">
 
-    {% if mensaje %}
-        <p style="color: green;">{{ mensaje }}</p>
-    {% endif %}
+<h1 class="m-3">Registro de Eventos</h1>
 
-    <form method="post">
-        {% csrf_token %}
-        <h2>Datos del Evento</h2>
-        {{ evento_form.as_p }}
+{% if mensaje %}
+<p style="color: green;">{{ mensaje }}</p>
+{% endif %}
 
-        <button type="submit">Registrar</button>
-    </form>
+<form method="post">
+    {% csrf_token %}
+    <h2>Datos del Evento</h2>
+    {{ evento_form.as_p }}
+
+    <button class="btn btn-primary" type="submit">Registrar</button>
+</form>
+
+<a href="{% url 'dashboard_eventos' %}" class="btn btn-secondary mt-5">
+    Volver al Dashboard
+</a>
+</main>
 {% endblock %}

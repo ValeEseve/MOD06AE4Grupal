@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import EventoForm, ParticipanteForm
 from .models import Evento, Participante
@@ -32,11 +33,10 @@ def registrar_evento(request):
             )
             evento.save()
 
-            mensaje = "Evento registrado correctamente."
+            messages.success(request, f"Evento '{nombre_evento}' registrado correctamente!.")
 
             evento_form = EventoForm()
             return redirect('dashboard_eventos')
-
     else:
         evento_form = EventoForm()
 
@@ -63,10 +63,11 @@ def registrar_participante(request, evento_id):
             )
             participante.save()
 
-            mensaje = "Participante registrado correctamente."
+            messages.success(request, f"Participante {nombre_participante} registrado correctamente!.")
 
             participante_form = ParticipanteForm()
-            return redirect('dashboard_eventos')
+            return redirect('detalle_evento', evento_id=participante.evento.id)
+            
     else:
         participante_form = ParticipanteForm()
 
@@ -79,4 +80,11 @@ def registrar_participante(request, evento_id):
 def borrar_evento(request, evento_id):
     evento = get_object_or_404(Evento, id=evento_id)
     evento.delete()
+    messages.warning(request, f"Evento '{evento.nombre}' borrado correctamente.")
     return redirect('dashboard_eventos')
+
+def borrar_participante(request, participante_id):
+    participante = get_object_or_404(Participante, id=participante_id)
+    participante.delete()
+    messages.warning(request, f"Participante '{participante.nombre}' borrado correctamente.")
+    return redirect('detalle_evento', evento_id=participante.evento.id)

@@ -6,5 +6,6 @@ urlpatterns = [
     path('evento/<int:evento_id>/', views.detalle_evento, name='detalle_evento'),
     path('evento/<int:evento_id>/registrar_participante/', views.registrar_participante, name='registrar_participante'),
     path('', views.dashboard_eventos, name='dashboard_eventos'),
-    path('borrar/<int:evento_id>/', views.borrar_evento, name='borrar_evento'),
+    path('borrar_evento/<int:evento_id>/', views.borrar_evento, name='borrar_evento'),
+    path('borrar_participante/<int:participante_id>/', views.borrar_participante, name='borrar_participante'),
 ]
